@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+  <link rel="manifest" href="/static/site.webmanifest">
+  <meta name="title" content="Sesh's Arbitrage Trade Opportunities">
+  <meta name="description" content="Database and list of recently discovered arbitrage trade opportunities between crypto currency markets and exchanges. Markets: BTCCAD, BTCUSD, BTCEUR">
+  <meta name="keywords" content="Crypto, Currency, Market, Exchange, Arbitrage, Trade, Stock, Sesh, Carti, Trading, Opportunity, Binance, Bitfinex, CexIO, Kraken, Gemini, CAD, USD, EUR, BTC, BTCCAD, BTCUSD, BTCEUR, Database, List, SATO">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="1 days">
+  <meta name="author" content="Bryce Cotton">
+  <title>SATO - Sesh's Arbitrage Trading Opportunities</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+  <script src="../static/scripts/particles.js"></script>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-image: url(/static/images/bryce_webpage.png);
+      background-size: cover;
+    }
+
+    .container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    top: 5%;
+    padding-bottom: 25px;
+    }
+
+    .container-left{
+      flex-direction: row;
+    }
+
+    header>p {
+      margin: .1em 0;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: rgb(226, 226, 226);
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    label {
+      display: inline-block;
+      width: 86px;
+    }
+
+    #price_thresh_label {
+      text-align: left;
+    }
+
+    #price_thresh_input {
+      text-align: right;
+      width: 40%;
+    }
+
+    p {
+      font-size: 2em;
+      color: rgb(255, 255, 255);
+      text-align: center;
+    }
+
+    .trade-box {
+      background-color: #eee;
+      width: 90%;
+      /* adjust the width of the floating box */
+      margin: 0 auto;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    table {
+      width: 100%;
+      /* adjust the width of the table */
+      border-collapse: collapse;
+    }
+
+    hr {
+      margin-top: -1%;
+      margin-bottom: -2%;
+    }
+
+    .buy_sell_col {
+        font-size: 12px;
+        visibility: hidden;
+    }
+
+    th,
+    td {
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: rgb(255, 255, 255);
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgb(228, 228, 228);
+    }
+
+    tr:hover {
+      background-color: rgb(255, 255, 255);
+    }
+
+    .textbox {
+      padding: 6px;
+      font-size: 12px;
+      border-width: 1px;
+      border-color: #CCCCCC;
+      background-color: #FFFFFF;
+      color: #000000;
+      border-style: hidden;
+      border-radius: 3px;
+      box-shadow: 0px 0px 5px rgba(66,66,66,.83);
+      text-shadow: -50px 0px 0px rgba(66,66,66,.0);
+    }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+      <div class="container-left">
+      <h1>SATO</h1>
+      <p>Sesh's Abitrage Trading Opportunities</p>
+    </div>
+
+
+      <div class="trade-box">
+        <h3>{{ now }}</h3>
+        <form action="/" id="controls" class="controls">
+          <!-- Wrap num_trades element and label in a div and apply flex and justify-content styles -->
+          <div style="display: flex; justify-content: flex-start;">
+            <select id="num_trades_dropdown" name="num_trades" class="textbox">
+              <option selected value="{{ list_num_trades[0] }}">{{ list_num_trades[0] }}</option>
+              <option value="{{ list_num_trades[1] }}">{{ list_num_trades[1] }}</option>
+              <option value="{{ list_num_trades[2] }}">{{ list_num_trades[2] }}</option>
+              <option value="{{ list_num_trades[3] }}">{{ list_num_trades[3] }}</option>
+              <option value="{{ list_num_trades[4] }}">{{ list_num_trades[4] }}</option>
+            </select>
+          </div>
+
+          <!-- Wrap Minimum Profit element and label in a div and apply flex and justify-content styles -->
+          <div style="display: flex; justify-content: flex-end;">
+            <label id="price_thresh_label" for="price_thresh_input">Min Profit:</label>
+            <input type="text" id="price_thresh_input" class="textbox" value="0">
+          </div>
+        </form>
+        <table>
+          <tr>
+            <th>Buy</th>
+            <th>Buy Price</th>
+            <th>Sell</th>
+            <th>Sell Price</th>
+            <th>Profit</th>
+          </tr>
+          {% for trade in trades %}
+          <tr>
+            <td class="buy_sell_col">{{ trade[3] }}<hr>{{ trade[2] }}</td>
+            <td>
+                {{ trade[4] }}
+            </td>
+            <td class="buy_sell_col">{{ trade[7] }}<hr>{{ trade[6] }}</td>
+            <td>
+                {{ trade[8] }}
+            </td>
+            <td>
+              {{ trade[10] | round(2) }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+</body>
+<script>
+  particlesJS.load('particles-js', 'particles.json', function () {
+    console.log('callback - particles.js config loaded');
+  });
+
+  function updateTradeTable() {
+        document.getElementById("controls").submit();
+    }
+
+    // Add an event listener to the num_trades dropdown menu to call the updateTradeTable function when the value is changed
+    document.getElementById("num_trades_dropdown").addEventListener("change", updateTradeTable);
+</script>
+
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <meta name="title" content="Sesh's Arbitrage Trade Opportunities">
+    <meta name="description"
+          content="Database and list of recently discovered arbitrage trade opportunities between crypto currency markets and exchanges. Markets: BTCCAD, BTCUSD, BTCEUR">
+    <meta name="keywords"
+          content="Crypto, Currency, Market, Exchange, Arbitrage, Trade, Stock, Sesh, Carti, Trading, Opportunity, Binance, Bitfinex, CexIO, Kraken, Gemini, CAD, USD, EUR, BTC, BTCCAD, BTCUSD, BTCEUR, Database, List, SATO">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="Bryce Cotton">
+    <title>SATO - Sesh's Arbitrage Trading Opportunities</title>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <script src="../static/scripts/particles.js"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url(/static/images/bryce_webpage.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .tracking-in-expand {
+            animation: tracking-in-expand 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        @keyframes tracking-in-expand {
+            0% {
+                letter-spacing: -0.5em;
+                opacity: 0;
+            }
+            40% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+        .container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            flex-direction: column;
+            top: 5%;
+            padding-bottom: 25px;
+        }
+
+        .container-left {
+            flex-direction: row;
+        }
+
+        header > p {
+            margin: .1em 0;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: rgb(226, 226, 226);
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        w
+        label {
+            display: inline-block;
+            width: 86px;
+        }
+
+        #price_thresh_label {
+            text-align: left;
+            width: 93px;
+            padding-top: 3px;
+        }
+
+        #price_thresh_input {
+            text-align: right;
+            width: 40%;
+        }
+
+        p {
+            font-size: 2em;
+            color: rgb(255, 255, 255);
+            text-align: center;
+        }
+
+        .trade_box {
+            background-color: #eee;
+            width: 90%;
+            /* adjust the width of the floating box */
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        table {
+            width: 100%;
+            /* adjust the width of the table */
+            border-collapse: collapse;
+        }
+
+        hr {
+            margin-top: -1%;
+            margin-bottom: -2%;
+        }
+
+        th,
+        td {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        th {
+            background-color: rgb(255, 255, 255);
+            font-weight: bold;
+        }
+
+        .sell_col, .buy_col, .buy_col_header, .sell_col_header {
+            display: none;
+        }
+
+        td:first-child {
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgb(228, 228, 228);
+        }
+
+        tr:hover {
+            background-color: rgb(255, 255, 255);
+        }
+
+        .textbox {
+            padding: 6px;
+            font-size: 12px;
+            border-width: 1px;
+            border-color: #CCCCCC;
+            background-color: #FFFFFF;
+            color: #000000;
+            border-style: hidden;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(66, 66, 66, .83);
+            text-shadow: -50px 0 0 rgba(66, 66, 66, .0);
+        }
+
+        @media only screen and (max-width: 1040px) {
+            .buy_market_col, .sell_market_col, .buy_exchange_col, .sell_exchange_col {
+                display: none;
+            }
+
+            .buy_col_header, .sell_col_header {
+                display: table-cell;
+            }
+
+            .buy_col, .sell_col {
+                display: table-cell;
+                font-size: .7em;
+            }
+        }
+
+        @media only screen and (max-width: 790px) {
+            .date_col {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 670px) {
+            .time_col {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 580px) {
+            .date_col, .time_col, .buy_fee_col, .sell_fee_col {
+                display: none;
+            }
+
+            td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="container-left">
+        <h1 class="tracking-in-expand">SATO</h1>
+        <p>Sesh's Abitrage Trading Opportunities</p>
+    </div>
+
+
+    <div class="trade_box">
+        <h3>{{ now }}</h3>
+        <form action="/" id="controls" class="controls">
+            <!-- Wrap num_trades element and label in a div and apply flex and justify-content styles -->
+            <div style="display: flex; justify-content: flex-start;">
+                <select id="num_trades_dropdown" name="num_trades" class="textbox">
+                    <option selected value="{{ list_num_trades[0] }}">{{ list_num_trades[0] }}</option>
+                    <option value="{{ list_num_trades[1] }}">{{ list_num_trades[1] }}</option>
+                    <option value="{{ list_num_trades[2] }}">{{ list_num_trades[2] }}</option>
+                    <option value="{{ list_num_trades[3] }}">{{ list_num_trades[3] }}</option>
+                    <option value="{{ list_num_trades[4] }}">{{ list_num_trades[4] }}</option>
+                </select>
+            </div>
+
+            <!-- Wrap Minimum Profit element and label in a div and apply flex and justify-content styles -->
+            <div style="display: flex; justify-content: flex-end;">
+                <label id="price_thresh_label" for="price_thresh_input">Mini Profit:</label>
+                <input type="text" id="price_thresh_input" name="price_thresh" class="textbox" value="0">
+            </div>
+        </form>
+        <table>
+            <tr>
+                <th class="date_col">Date</th>
+                <th class="time_col">Time</th>
+                <th class="buy_col_header">Buy</th>
+                <th class="buy_exchange_col">Buy Exchange</th>
+                <th class="buy_market_col">Buy Market</th>
+                <th class="buy_price_col">Buy Price</th>
+                <th class="buy_fee_col">Buy Fee</th>
+                <th class="sell_col_header">Sell</th>
+                <th class="sell_exchange_col">Sell Exchange</th>
+                <th class="sell_market_col">Sell Market</th>
+                <th class="sell_price_col">Sell Price</th>
+                <th class="sell_fee_col">Sell Fee</th>
+                <th class="profit_col">Profit</th>
+            </tr>
+            {% for trade in trades %}
+                <tr>
+                    <td class="date_col">{{ trade[1].split(',')[0] }}</td>
+                    <td class="time_col">{{ trade[1].split(',')[1] }}</td>
+                    <td class="buy_col">{{ trade[3] }}
+                        <hr>
+                        {{ trade[2] }}</td>
+                    <td class="buy_exchange_col">{{ trade[2] }}</td>
+                    <td class="buy_market_col">{{ trade[3] }}</td>
+                    <td class="buy_price_col">{{ trade[4] }}</td>
+                    <td class="buy_fee_col">
+                        {% if trade[5] is defined %}
+                            {{ trade[5] | round(2) }}
+                        {% endif %}
+                    </td>
+                    <td class="sell_col">{{ trade[7] }}
+                        <hr>
+                        {{ trade[6] }}</td>
+                    <td class="sell_exchange_col">{{ trade[6] }}</td>
+                    <td class="sell_market_col">{{ trade[7] }}</td>
+                    <td class="sell_price_col">{{ trade[8] }}</td>
+                    <td class="sell_fee_col">
+                        {% if trade[9] is defined %}
+                            {{ trade[9] | round(2) }}
+                        {% endif %}
+                    </td>
+                    <td class="profit_col">
+                        {{ trade[10] | round(2) }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    particlesJS.load('particles-js', 'particles.json', function () {
+        console.log('callback - particles.js config loaded');
+    });
+
+    function updateTradeTable() {
+        document.getElementById("controls").submit();
+    }
+
+    // Add an event listener to the num_trades dropdown menu to call the updateTradeTable function when the value is changed
+    document.getElementById("num_trades_dropdown").addEventListener("change", updateTradeTable);
+</script>
+
+</html>
