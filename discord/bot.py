@@ -45,5 +45,5 @@ async def on_guild_join(guild):
     print('Bot has connected to {} @ {}'.format(guild.name, datetime.now()))
 
 
-load_dotenv('../.env')
+load_dotenv('.env')
 bot.run(os.getenv('TOKEN'))
